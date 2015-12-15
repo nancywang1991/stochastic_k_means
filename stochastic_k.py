@@ -103,7 +103,7 @@ class stochastic_k():
             random.shuffle(index)
             start=time.time()
             mapfunc = partial(self._process_cluster, centers, X, center_cnt, labels)
-            map(mapfunc, index[:int(n_data*0.01)])
+            map(mapfunc, index[:int(n_data*0.05)])
             inertia_prev = inertia
             _, inertia = self._labels_inertia(X, centers)
             if inertia_prev-inertia < tol:

@@ -30,7 +30,7 @@ def cluster_procedure(n_jobs, n_cluster, n_data, dist, stdev, n_dim):
      result_temp=[]
      time_temp=[]
      invalid_cnt=0
-     for x in xrange(20):
+     for x in xrange(50):
          start = time.time()
          stoch_k = stochastic_k.stochastic_k(n_clusters=n_cluster, max_iter=50, n_jobs=n_jobs)
          centers, labels, inertia = stoch_k.fit(data[:,:-1])
@@ -48,7 +48,7 @@ def cluster_procedure(n_jobs, n_cluster, n_data, dist, stdev, n_dim):
          result_temp=[]
          time_temp=[]
          invalid_cnt=0
-         for x in xrange(20):
+         for x in xrange(50):
              start = time.time()
              normal_k = stochastic_k.stochastic_k(n_clusters=n_cluster)
              centers, labels, inertia = normal_k.fit(data[:,:-1])
@@ -65,7 +65,7 @@ def cluster_procedure(n_jobs, n_cluster, n_data, dist, stdev, n_dim):
 
 def main():
     default_params_l=[[1,3,1000,1,0.5,10], [4,3,10000,1,0.5,10]]
-    n_jobs_range=range(1,7)
+    n_jobs_range=range(1,20)
     n_cluster_range=range(2,8)
     n_data_range=range(1000,10000,1000)
     stdev_range=list(np.array(range(1,20,1))/10.0)
@@ -78,19 +78,19 @@ def main():
         dim_res=np.zeros(shape=(len(n_dim_range),2,3))
         for a, n_jobs in enumerate(n_jobs_range):
             jobs_res[a,:,:]=cluster_procedure(n_jobs, default_params[1], default_params[2], default_params[3], default_params[4], default_params[5])
-            pickle.dump(jobs_res, open('C:\\Users\\wangnxr\\Documents\\classes\\systems\\project_data\\jobs_result_default' + str(n) + '.p', 'wb'))
+        pickle.dump(jobs_res, open('/home/nancy/Documents/systems/project_data/jobs_result_default' + str(n) + '.p', 'wb'))
         for b, n_cluster in enumerate(n_cluster_range):
             cluster_res[b,:,:]=cluster_procedure(default_params[0], n_cluster, default_params[2], default_params[3], default_params[4], default_params[5])
-            pickle.dump(cluster_res, open('C:\\Users\\wangnxr\\Documents\\classes\\systems\\project_data\\cluster_result_default' + str(n) + '.p', 'wb'))
+        pickle.dump(cluster_res, open('/home/nancy/Documents/systems/project_data/cluster_result_default' + str(n) + '.p', 'wb'))
         for c, n_data in enumerate(n_data_range):
             data_res[c,:,:]=cluster_procedure(default_params[0], default_params[1], n_data, default_params[3], default_params[4], default_params[5])
-            pickle.dump(data_res, open('C:\\Users\\wangnxr\\Documents\\classes\\systems\\project_data\\data_result_default' + str(n) + '.p', 'wb'))
+        pickle.dump(data_res, open('/home/nancy/Documents/systems/project_data/data_result_default' + str(n) + '.p', 'wb'))
         for d, stdev in enumerate(stdev_range):
             stdev_res[d,:,:]=cluster_procedure(default_params[0], default_params[1], default_params[2], default_params[3], stdev, default_params[5])
-            pickle.dump(stdev_res, open('C:\\Users\\wangnxr\\Documents\\classes\\systems\\project_data\\stdev_result_default' + str(n) + '.p', 'wb'))
+        pickle.dump(stdev_res, open('/home/nancy/Documents/systems/project_data/stdev_result_default' + str(n) + '.p', 'wb'))
         for e, n_dim in enumerate(n_dim_range):
             dim_res[e,:,:]=cluster_procedure(default_params[0], default_params[1], default_params[2], default_params[3], default_params[4], n_dim)
-            pickle.dump(dim_res, open('C:\\Users\\wangnxr\\Documents\\classes\\systems\\project_data\\dim_result_default' + str(n) + '.p', 'wb'))
+        pickle.dump(dim_res, open('/home/nancy/Documents/systems/project_data/dim_result_default' + str(n) + '.p', 'wb'))
 
 if __name__ == '__main__':
     main()
